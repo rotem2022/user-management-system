@@ -9,7 +9,7 @@ let users: User[] = [];
 // In-memory storage for active sessions
 let activeSessions: string[] = [];
 
-// Authentication middleware
+// Authentication 
 const requireAuth = (req: Request, res: Response, next: NextFunction) => {
   const userId = req.headers['user-id'] as string;
   
@@ -29,14 +29,12 @@ router.post('/users', (req, res) => {
   try {
     const { fullName, email, phone, password } = req.body;
 
-    // Basic validation
     if (!fullName || !email || !phone || !password) {
       return res.status(400).json({ 
         error: 'All fields are required' 
       });
     }
 
-    // Check if user already exists
     const existingUser = users.find(user => user.email === email);
     if (existingUser) {
       return res.status(400).json({ 
@@ -87,14 +85,12 @@ router.post('/login', (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Basic validation
     if (!email || !password) {
       return res.status(400).json({ 
         error: 'Email and password are required' 
       });
     }
 
-    // Find user by email
     const user = users.find(user => user.email === email);
     
     if (!user) {
@@ -102,8 +98,6 @@ router.post('/login', (req, res) => {
         error: 'Invalid email or password' 
       });
     }
-
-    // Check password
     if (user.password !== password) {
       return res.status(401).json({ 
         error: 'Invalid email or password' 
@@ -115,7 +109,6 @@ router.post('/login', (req, res) => {
       activeSessions.push(user.id);
     }
 
-    // Return user data (without password)
     res.json({ 
       message: 'Login successful',
       user: {

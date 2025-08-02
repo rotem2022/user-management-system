@@ -11,12 +11,12 @@
 
 ```
 UserManagement/
-├── server/                # Backend (Node.js + Express + TypeScript)
+├── server/                # Backend 
 │   ├── src/
 │   │   ├── index.ts       # Server entry point
 │   │   ├── routes/        # API routes
 │   └── package.json
-├── client/                # Frontend (React + TypeScript)
+├── client/                # Frontend 
 │   ├── src/
 │   │   ├── components/    # React components
 │   │   ├── pages/         # Page components
@@ -38,41 +38,11 @@ UserManagement/
 npm run install:all
 npm run dev
 ```
+### Application Flow
+1. **Register** at: http://localhost:5173/register
+2. **Login** at: http://localhost:5173/login
+3. **View Users** at: http://localhost:5173/users (requires authentication)
 
-### Manual Setup
-
-#### Backend Setup
-```bash
-cd server
-npm install
-npm run dev
-```
-
-#### Frontend Setup
-```bash
-cd client
-npm install
-npm run dev
-```
-
-## Usage
-
-1. **Start the backend server:**
-   ```bash
-   cd server && npm run dev
-   ```
-   Server will run on: http://localhost:3001
-
-2. **Start the frontend:**
-   ```bash
-   cd client && npm run dev
-   ```
-   App will run on: http://localhost:5173
-
-3. **Use the application:**
-   - Register a new user at: http://localhost:5173/register
-   - Login at: http://localhost:5173/login
-   - View users at: http://localhost:5173/users (requires authentication)
 
 ## API Endpoints
 
@@ -106,4 +76,5 @@ npm run dev
 
 - Data is stored in-memory and will be lost when the server restarts
 - Authentication is session-based (no persistent login)
-- No logout functionality (as per requirements) 
+- No logout functionality (as per requirements)
+- Environment variables are included in the repository for learning purposes (not recommended for production) 
