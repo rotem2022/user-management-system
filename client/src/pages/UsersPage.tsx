@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Alert } from '../components/ui/Alert';
 import { api } from '../services/api';
-import type { UserResponse } from '../../../shared/types/user';
+import type { UserResponse } from '../../../shared/types/types';
 
 export const UsersPage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,14 +60,34 @@ export const UsersPage: React.FC = () => {
 
             {hasLoaded && users.length > 0 && (
               <div className="mt-4">
-                <h2 className="mb-4">Registered Users:</h2>
-                <div className="flex flex-col gap-3">
-                  {users.map((user) => (
-                    <div key={user.id} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                      <div className="font-medium text-lg">{user.fullName}</div>
-                      <div className="text-gray-600">{user.email}</div>
-                    </div>
-                  ))}
+                <h2 className="mb-4 text-center">Registered Users:</h2>
+                <div className="flex justify-center">
+                  <div className="overflow-x-auto shadow-lg border-2 border-gray-300 rounded-lg">
+                    <table className="border-collapse border border-gray-300 rounded-lg overflow-hidden bg-white">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="border border-gray-300 px-6 py-4 text-left font-semibold text-gray-700 min-w-[200px]">
+                            Name
+                          </th>
+                          <th className="border border-gray-300 px-6 py-4 text-left font-semibold text-gray-700 min-w-[250px]">
+                            Email
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {users.map((user) => (
+                          <tr key={user.id} className="hover:bg-gray-50 transition-colors">
+                            <td className="border border-gray-300 px-6 py-4 text-gray-800">
+                              {user.fullName}
+                            </td>
+                            <td className="border border-gray-300 px-6 py-4 text-gray-600">
+                              {user.email}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}
