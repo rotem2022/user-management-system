@@ -1,7 +1,6 @@
-import type { CreateUserRequest, UserResponse, LoginRequest } from '../../../shared/types/user';
+import type { CreateUserRequest, UserResponse, LoginRequest } from '../../../shared/types/types';
 
-const API_BASE_URL = 'http://localhost:3001/api';
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const api = {
   // Create new user
   async createUser(userData: CreateUserRequest): Promise<{ message: string; user: UserResponse }> {
