@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { Button } from '../components/ui/Button';
@@ -6,30 +6,31 @@ import { Input } from '../components/ui/Input';
 import { Alert } from '../components/ui/Alert';
 import { api } from '../services/api';
 
-const registerSchema = yup.object({
-  fullName: yup.string().required('Full name is required'),
-  email: yup
-    .string()
-    .email('Invalid email format')
-    .matches(/^[^@]+@[^@]+\.[^@]+$/, 'Invalid email format')
-    .required('Email is required'),
-  phone: yup
-    .string()
-    .matches(/^05\d-\d{7}$/, 'Invalid phone number (05x-xxxxxxx)')
-    .required('Phone is required'),
-  password: yup
-    .string()
-    .matches(/[A-Z]/, 'Password must contain uppercase letter')
-    .matches(/[a-z]/, 'Password must contain lowercase letter')
-    .matches(/[0-9]/, 'Password must contain number')
-    .matches(/[^A-Za-z0-9]/, 'Password must contain special character')
-    .required('Password is required'),
-});
-
-type FormData = yup.InferType<typeof registerSchema>;
-
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
+  
+  const registerSchema = useMemo(() => yup.object({
+    fullName: yup.string().required('Full name is required'),
+    email: yup
+      .string()
+      .email('Invalid email format')
+      .matches(/^[^@]+@[^@]+\.[^@]+$/, 'Invalid email format')
+      .required('Email is required'),
+    phone: yup
+      .string()
+      .matches(/^05\d-\d{7}$/, 'Invalid phone number (05x-xxxxxxx)')
+      .required('Phone is required'),
+    password: yup
+      .string()
+      .matches(/[A-Z]/, 'Password must contain uppercase letter')
+      .matches(/[a-z]/, 'Password must contain lowercase letter')
+      .matches(/[0-9]/, 'Password must contain number')
+      .matches(/[^A-Za-z0-9]/, 'Password must contain special character')
+      .required('Password is required'),
+  }), []);
+
+  type FormData = yup.InferType<typeof registerSchema>;
+
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
@@ -40,10 +41,24 @@ export const RegisterPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
+  const validateField = async (field: keyof FormData, value: string) => {
+    try {
+      await registerSchema.validateAt(field, { [field]: value });
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        setErrors(prev => ({ ...prev, [field]: error.message }));
+      }
+    }
+  };
+
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
+    
+    // Real-time validation
+    if (value) {
+      validateField(field, value);
+    } else {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
   };

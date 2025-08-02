@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -13,7 +13,7 @@ export const Input: React.FC<InputProps> = ({
   className = '',
   ...props
 }) => {
-  const inputClass = `input ${error ? 'error' : ''} ${className}`;
+  const inputClass = useMemo(() => `input ${error ? 'error' : ''} ${className}`, [error, className]);
   
   return (
     <div className="form-group">

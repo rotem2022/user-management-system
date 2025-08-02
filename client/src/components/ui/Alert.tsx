@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface AlertProps {
   type: 'success' | 'error';
@@ -13,7 +13,7 @@ export const Alert: React.FC<AlertProps> = ({
   onClose,
   className = ''
 }) => {
-  const alertClass = `alert alert-${type} ${className}`;
+  const alertClass = useMemo(() => `alert alert-${type} ${className}`, [type, className]);
   
   return (
     <div className={alertClass}>

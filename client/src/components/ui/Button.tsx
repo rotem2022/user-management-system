@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'success' | 'danger';
@@ -13,7 +13,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const buttonClass = `btn btn-${variant} btn-${size} ${className}`;
+  const buttonClass = useMemo(() => `btn btn-${variant} btn-${size} ${className}`, [variant, size, className]);
   
   return (
     <button className={buttonClass} {...props}>

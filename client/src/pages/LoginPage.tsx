@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { Button } from '../components/ui/Button';
@@ -6,18 +6,18 @@ import { Input } from '../components/ui/Input';
 import { Alert } from '../components/ui/Alert';
 import { api } from '../services/api';
 
-const loginSchema = yup.object({
-  email: yup
-    .string()
-    .email('Invalid email format')
-    .required('Email is required'),
-  password: yup.string().required('Password is required'),
-});
-
-type FormData = yup.InferType<typeof loginSchema>;
-
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  
+  const loginSchema = useMemo(() => yup.object({
+    email: yup
+      .string()
+      .email('Invalid email format')
+      .required('Email is required'),
+    password: yup.string().required('Password is required'),
+  }), []);
+
+  type FormData = yup.InferType<typeof loginSchema>;
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
@@ -26,10 +26,24 @@ export const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
+  const validateField = async (field: keyof FormData, value: string) => {
+    try {
+      await loginSchema.validateAt(field, { [field]: value });
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        setErrors(prev => ({ ...prev, [field]: error.message }));
+      }
+    }
+  };
+
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
+    
+    // Real-time validation
+    if (value) {
+      validateField(field, value);
+    } else {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
   };
