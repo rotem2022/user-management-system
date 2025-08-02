@@ -1,4 +1,4 @@
-import type { CreateUserRequest, UserResponse, LoginRequest } from '../../../shared/types/types';
+import type { CreateUserRequest, UserResponse, LoginRequest } from '../../../shared/types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 export const api = {

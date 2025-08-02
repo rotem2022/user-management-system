@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { User } from '../../../shared/types/user';
+import { User } from '../../../shared/types';
 
 const router = Router();
 

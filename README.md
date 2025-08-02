@@ -11,22 +11,19 @@
 
 ```
 UserManagement/
-├── server/                 # Backend (Node.js + Express + TypeScript)
+├── server/                # Backend (Node.js + Express + TypeScript)
 │   ├── src/
 │   │   ├── index.ts       # Server entry point
 │   │   ├── routes/        # API routes
-│   │   └── middleware/    # Authentication middleware
 │   └── package.json
 ├── client/                # Frontend (React + TypeScript)
 │   ├── src/
 │   │   ├── components/    # React components
 │   │   ├── pages/         # Page components
 │   │   ├── services/      # API services
-│   │   └── styles/        # CSS files
 │   └── package.json
 └── shared/                # Shared types
-    └── types/
-        └── user.ts        # User type definitions
+        └── types.ts       # Type definitions
 ```
 
 ## Installation

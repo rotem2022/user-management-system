@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Alert } from '../components/ui/Alert';
 import { api } from '../services/api';
-import type { UserResponse } from '../../../shared/types/types';
+import type { UserResponse } from '../../../shared/types';
 
 export const UsersPage: React.FC = () => {
   const navigate = useNavigate();
