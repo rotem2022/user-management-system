@@ -25,13 +25,13 @@ UserManagement/
 - Node.js (v18 or higher)
 - npm
 
-### Quick Setup 
+## Quick Setup 
+ Install all dependencies and start both servers
 ```bash
-# Install all dependencies and start both servers
 npm run install:all
 npm run dev
 ```
-### Application Flow
+## Application Flow
 1. **Register** at: http://localhost:5173/register
 2. **Login** at: http://localhost:5173/login
 3. **View Users** at: http://localhost:5173/users (requires authentication)
