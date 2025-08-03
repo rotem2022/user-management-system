@@ -1,12 +1,5 @@
 # User Management System
 
-## Features
-
-- ✅ User registration with validation
-- ✅ User authentication (login)
-- ✅ Protected user listing (only authenticated users)
-- ✅ In-memory storage (data resets on server restart)
-
 ## Project Structure
 
 ```
@@ -32,7 +25,7 @@ UserManagement/
 - Node.js (v18 or higher)
 - npm
 
-### Quick Setup (Recommended)
+### Quick Setup 
 ```bash
 # Install all dependencies and start both servers
 npm run install:all
@@ -60,17 +53,13 @@ npm run dev
 - Node.js
 - Express.js
 - TypeScript
-- CORS (Cross-Origin Resource Sharing)
-- dotenv (environment variables)
-- ts-node (TypeScript execution)
 
 ### Frontend
 - React
 - TypeScript
 - Vite (build tool)
-- React Router
 - Yup (validation)
-- CSS (custom styling)
+- CSS 
 
 ## Notes
 
